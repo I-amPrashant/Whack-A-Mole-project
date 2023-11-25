@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("360_F_594713671_1rylPvir2YCEVC20hH8BgfI6gkOVVAHU.jpg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        overflow-x: hidden;
+      }
+      #main-container{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 20px;
+        border-radius: 20px;
+      }
+      #container {
+        display: flex;
+        justify-content: space-around;
+        justify-items: center;
+        align-items: center;
+        gap: 60px;
+        flex-wrap: wrap;
+        width: 400px;
+        border: 2px solid rgba(81, 5, 5, 0.4);
+        padding: 20px;
+        background: transparent;
+        backdrop-filter: blur(5px);
+      }
+      span {
+        height: 50px;
+        width: 50px;
+        background-color: black;
+        border: 0.5px solid rgb(244, 9, 9, 0.4);
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1px;
+      }
+      #mouse {
+        height: 40px;
+        width: 40px;
+        object-fit: cover;
+      }
+      #header {
+        background-color: black;
+        padding: 7px 5px;
+        border: none;
+        width: 400px;
+        text-align: center;
+        border-radius: 10px;
+      }
+      #header div {
+        width: 100%;
+        border: 3px solid rgb(44, 5, 5);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+      }
+      button {
+        background-color: black;
+        color: red;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        outline: none;
+      }
+      .disable{
+        pointer-events: none;
+        filter: grayscale(100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main-container">
+
+      <div id="header">
+        <h1 style="font-size: 50px; color: white">
+          <strong style="color: rgb(184, 31, 31)">Wha</strong>ck a mole
+        </h1>
+        <div id="highScore">
+          <p><strong style="color: rgb(184, 31, 31)">H</strong>igh score :</p>
+          <p>0</p>
+        </div>
+        <div id="currentScore">
+          <p><strong style="color: rgb(184, 31, 31)">Curr</strong>ent score :</p>
+          <p>0</p>
+        </div>
+        <div id="timer">
+          <p><strong style="color: rgb(184, 31, 31)">T</strong>ime:</p>
+          <p style="color: white">00:00</p>
+        </div>
+      </div>
+  
+      <div>
+        <label  style="font-size: xx-large;"><strong style="color: rgb(184, 31, 31)">Set</strong> Difficulty: </label><br>
+        <input type="range" min="1" max="10"   step="1" id="difficultyRange" oninput="handleDifficulty(this.value)">
+        <!-- this is a keyword whose value is determined by how a function is invoked. 
+
+        const myObject = {
+          myMethod: function() {
+              console.log(this); // logs the object (myObject)
+          }
+      };
+      
+      myObject.myMethod();   -->
+
+      <!-- <button id="myButton">Click me</button>
+
+<script>
+    document.getElementById("myButton").addEventListener("click", function() {
+        console.log(this); // logs the button element
+    });
+</script> -->
+<!-- 
+this chai yeuta literal keyword jastai ho kun ma use bhako xa tesko parent athawa type ko information dinxa. It is like e.target while using in event listeners. -->
+
+<!-- In summary, e.target is specifically about the element that triggered the event, while this is more about the context in which the function is executed, which may or may not be directly related to the triggering element. -->
+
+      </div>
+
+      <div id="container">
+        <span id="1" class="box"></span>
+        <span id="2" class="box"></span>
+        <span id="3" class="box"></span>
+        <span id="4" class="box"></span>
+        <span id="5" class="box"></span>
+        <span id="6" class="box"></span>
+        <span id="7" class="box"></span>
+        <span id="8" class="box"></span>
+        <span id="9" class="box"></span>
+      </div>
+  
+      <div id="start-restart" style="display: flex; gap: 20px">
+        <button>Start</button>
+        <button class="disable">Reset</button>
+      </div>
+
+    </div>
+    <script>
+
+      //THINGS TO REMEMBER,  CODE TALA MATHI HUDA PANI LOGIC NAMILNA SAKXA, REMEMBER ABOUT LOOPING WHEN USING SETINTERVAL , VARIABLE MOSTLY GLOBALLY DECLARED GARDA THIK, AND FINALLY VARIABLE THAT ARE CHANGED INSIDE SETINTERVAL CANNOT BE USED PROBABLY OUTSIDE SETINTERVAL BECAUSE OF TIMING KO KURA HARU. 
+
+
+        const difficultyRange=document.getElementById("difficultyRange");
+
+let difficulty=0;
+
+//range input attribute ma directly addEventListener use garyo bhani kam gardaina so inline css ma chai oninput bhanera lekhni ani function banaidini.
+
+function handleDifficulty(valOfDifficulty){
+
+  //in javascript c++ haruma jasto 1<=value>=5, yesari garna paudaina so tala jasari garni.
+ console.log(valOfDifficulty)
+ if(valOfDifficulty>=1 && valOfDifficulty<=3){
+   difficulty=1000;
+ }
+ if(valOfDifficulty>=4 && valOfDifficulty<=6){
+   difficulty=750
+ }
+ if(valOfDifficulty>=7 && valOfDifficulty<=9){
+   difficulty=500
+ }
+ if(valOfDifficulty>9){
+   difficulty=300
+ }
+}
+
+      document.addEventListener("DOMContentLoaded", function() {
+
+        let idArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const container=document.getElementById("container")
+      const currentScoreContainer =
+        document.getElementById("currentScore").lastElementChild;
+      const highScoreContainer =
+        document.getElementById("highScore").lastElementChild;
+      const timer = document.getElementById("timer").lastElementChild;
+      const startButton =
+        document.getElementById("start-restart").firstElementChild;
+      const resetButton =
+        document.getElementById("start-restart").lastElementChild;
+      
+          
+       
+
+      let currentScore = 0,
+        highScore = 0, randomId;
+let timeCounter, a;
+      function startGame() {
+        ///timer
+        let count = 30;
+        startButton.classList.add("disable")
+        resetButton.classList.remove("disable")
+
+        
+         timeCounter = setInterval(() => {
+          count = count - 1;
+          if (count === 0) {
+            clearInterval(timeCounter);
+          }
+          if (count < 10) {
+            timer.textContent = `00:0${count}`;
+          } else {
+            timer.textContent = `00:${count}`;
+          }
+        }, 1000);
+
+        currentScore = 0;
+        currentScoreContainer.innerHTML = currentScore;
+
+        const boxes = document.getElementsByTagName("span");
+        
+        let mouse = document.createElement("img");
+        mouse.setAttribute("id", "mouse");
+        mouse.src = "./mole.png";
+
+         a = setInterval(() => {
+
+            if (count === 0) {
+            clearInterval(a);
+            container.removeEventListener("click", clickHandler)
+            if (highScore < currentScore) { 
+                highScore=currentScore;
+              highScoreContainer.textContent = highScore;
+              alert("congratulation you have a new highest record");
+            }
+            return;
+          }
+
+          for (const item of boxes) {
+            item.innerHTML = "";
+          }
+           randomId = Math.floor(Math.random() * idArray.length + 1);
+          for (const item of boxes) {
+            if (item.id == randomId) {
+              item.appendChild(mouse);
+              mouse.setAttribute("class", "mouseItem")
+            }
+          }
+          container.removeEventListener("click", clickHandler)//remove event listener kina use gareko bhani setinterval le multiple choti event handler attach gardinxa so setinterval bhitra eventListener xa bhani we should use remove event listener
+          container.addEventListener("click", clickHandler)
+         
+        }, difficulty);
+        
+      }
+      //resetting the game
+      function resetGame(){
+          clearInterval(timeCounter);//clear interval setinterval baira wa bhitra garnu xa bhani const a=setint().. yesari garni, function banayera. Ani tala ayera yesari clear garna milxa natra normal setinterval like clear garna mildaina 
+          clearInterval(a);
+          timer.textContent="00:00";
+          currentScoreContainer.innerHTML="0";
+          resetButton.classList.add("disable")
+          startButton.classList.remove("disable")
+      }
+
+      //to handle the mouse click event.
+      function clickHandler(event) {
+    if (event.target.matches(".mouseItem")) {//we can also write event.target.classList.contains("..");
+      currentScore=currentScore+10;
+      currentScoreContainer.innerHTML=currentScore;
+    }
+}
+//e or event.target ka use garni ho thaxa.   
+//suppose that you have a container inside which there are different elements. Aba tyo kun element click bhako ho bhanera check garnu paryo re suppose then in that case you can use e.target as      
+
+
+// container.addeventLIsterner("click", (event)=>{
+//   event.target.classList.contains("box");  yesle k bhaneko ta bhanda click gareko element ma box bhanni class xata bhanera bhaneko athawa purai container ma box class bhako element click gareko bhanera indicate garxa. It just indicates that throughout the entire container even in the empty place where exactly you have clicked..
+
+      // TYO HAMBURGER MA CLICK GARDA SIDEBAR KHULLINI WALA THYO NI TEI HO YESARI GARNI
+
+//   event.target.matches(".box");
+// })
+
+
+      // startButton.addEventListener("click", timerFunction);
+      startButton.addEventListener("click", startGame);
+      resetButton.addEventListener("click", resetGame);
+
+});
+
+    </script>
+  </body>
+</html>
