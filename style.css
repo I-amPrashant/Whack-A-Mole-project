@@ -1,0 +1,89 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+}
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: none;
+  background-color: black;
+}
+#main-container{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+}
+#container {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 400px;
+  border: 2px solid rgba(81, 5, 5, 0.4);
+  padding: 20px;
+  background: transparent;
+  backdrop-filter: blur(5px);
+}
+span {
+  height: 50px;
+  width: 50px;
+  background-color: black;
+  border: 0.5px solid rgb(244, 9, 9, 0.4);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+}
+#mouse {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+}
+#header {
+  background-color: black;
+  padding: 7px 5px;
+  border: none;
+  text-align: center;
+  border-radius: 10px;
+}
+#header div {
+  width: 100%;
+  border: 3px solid rgb(44, 5, 5);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+button {
+  background-color: black;
+  color: red;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  outline: none;
+}
+.disable{
+  pointer-events: none;
+  filter: grayscale(100%);
+}
+#cursor-dot{
+    position: fixed;
+    /* by giving top, left 0 and transform we can place it at center. not for this program */
+    inset: 0;
+    transform: translate(-70%, -50%);
+    z-index: 1;
+    pointer-events: none;
+}

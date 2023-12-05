@@ -4,95 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-image: url("360_F_594713671_1rylPvir2YCEVC20hH8BgfI6gkOVVAHU.jpg");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        overflow-x: hidden;
-      }
-      #main-container{
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        justify-content: center;
-        align-items: center;
-        padding: 10px 20px;
-        border-radius: 20px;
-      }
-      #container {
-        display: flex;
-        justify-content: space-around;
-        justify-items: center;
-        align-items: center;
-        gap: 60px;
-        flex-wrap: wrap;
-        width: 400px;
-        border: 2px solid rgba(81, 5, 5, 0.4);
-        padding: 20px;
-        background: transparent;
-        backdrop-filter: blur(5px);
-      }
-      span {
-        height: 50px;
-        width: 50px;
-        background-color: black;
-        border: 0.5px solid rgb(244, 9, 9, 0.4);
-        border-radius: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1px;
-      }
-      #mouse {
-        height: 40px;
-        width: 40px;
-        object-fit: cover;
-      }
-      #header {
-        background-color: black;
-        padding: 7px 5px;
-        border: none;
-        width: 400px;
-        text-align: center;
-        border-radius: 10px;
-      }
-      #header div {
-        width: 100%;
-        border: 3px solid rgb(44, 5, 5);
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        padding: 5px;
-      }
-      button {
-        background-color: black;
-        color: red;
-        padding: 10px;
-        border-radius: 10px;
-        font-size: 20px;
-        cursor: pointer;
-        outline: none;
-      }
-      .disable{
-        pointer-events: none;
-        filter: grayscale(100%);
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
+
   </head>
   <body>
+    <img id="cursor-dot" src="hammer.png" alt="hammer" style="height: 70px;width: 70px;background:transparent;">
+
     <div id="main-container">
 
       <div id="header">
@@ -133,10 +50,7 @@
         console.log(this); // logs the button element
     });
 </script> -->
-<!-- 
-this chai yeuta literal keyword jastai ho kun ma use bhako xa tesko parent athawa type ko information dinxa. It is like e.target while using in event listeners. -->
 
-<!-- In summary, e.target is specifically about the element that triggered the event, while this is more about the context in which the function is executed, which may or may not be directly related to the triggering element. -->
 
       </div>
 
@@ -160,19 +74,13 @@ this chai yeuta literal keyword jastai ho kun ma use bhako xa tesko parent athaw
     </div>
     <script>
 
-      //THINGS TO REMEMBER,  CODE TALA MATHI HUDA PANI LOGIC NAMILNA SAKXA, REMEMBER ABOUT LOOPING WHEN USING SETINTERVAL , VARIABLE MOSTLY GLOBALLY DECLARED GARDA THIK, AND FINALLY VARIABLE THAT ARE CHANGED INSIDE SETINTERVAL CANNOT BE USED PROBABLY OUTSIDE SETINTERVAL BECAUSE OF TIMING KO KURA HARU. 
-
-
         const difficultyRange=document.getElementById("difficultyRange");
 
-let difficulty=0;
+let difficulty=750;
 
-//range input attribute ma directly addEventListener use garyo bhani kam gardaina so inline css ma chai oninput bhanera lekhni ani function banaidini.
 
 function handleDifficulty(valOfDifficulty){
 
-  //in javascript c++ haruma jasto 1<=value>=5, yesari garna paudaina so tala jasari garni.
- console.log(valOfDifficulty)
  if(valOfDifficulty>=1 && valOfDifficulty<=3){
    difficulty=1000;
  }
@@ -201,8 +109,6 @@ function handleDifficulty(valOfDifficulty){
       const resetButton =
         document.getElementById("start-restart").lastElementChild;
       
-          
-       
 
       let currentScore = 0,
         highScore = 0, randomId;
@@ -212,7 +118,6 @@ let timeCounter, a;
         let count = 30;
         startButton.classList.add("disable")
         resetButton.classList.remove("disable")
-
         
          timeCounter = setInterval(() => {
           count = count - 1;
@@ -258,7 +163,7 @@ let timeCounter, a;
               mouse.setAttribute("class", "mouseItem")
             }
           }
-          container.removeEventListener("click", clickHandler)//remove event listener kina use gareko bhani setinterval le multiple choti event handler attach gardinxa so setinterval bhitra eventListener xa bhani we should use remove event listener
+          container.removeEventListener("click", clickHandler)//we use remove event listener to avoid multiple event handlers from setInterval
           container.addEventListener("click", clickHandler)
          
         }, difficulty);
@@ -266,7 +171,7 @@ let timeCounter, a;
       }
       //resetting the game
       function resetGame(){
-          clearInterval(timeCounter);//clear interval setinterval baira wa bhitra garnu xa bhani const a=setint().. yesari garni, function banayera. Ani tala ayera yesari clear garna milxa natra normal setinterval like clear garna mildaina 
+          clearInterval(timeCounter);
           clearInterval(a);
           timer.textContent="00:00";
           currentScoreContainer.innerHTML="0";
@@ -281,24 +186,27 @@ let timeCounter, a;
       currentScoreContainer.innerHTML=currentScore;
     }
 }
-//e or event.target ka use garni ho thaxa.   
-//suppose that you have a container inside which there are different elements. Aba tyo kun element click bhako ho bhanera check garnu paryo re suppose then in that case you can use e.target as      
 
-
-// container.addeventLIsterner("click", (event)=>{
-//   event.target.classList.contains("box");  yesle k bhaneko ta bhanda click gareko element ma box bhanni class xata bhanera bhaneko athawa purai container ma box class bhako element click gareko bhanera indicate garxa. It just indicates that throughout the entire container even in the empty place where exactly you have clicked..
-
-      // TYO HAMBURGER MA CLICK GARDA SIDEBAR KHULLINI WALA THYO NI TEI HO YESARI GARNI
-
-//   event.target.matches(".box");
-// })
-
+//Tips: e.target is generally used in creating a sidebar that works with outside touch event.
 
       // startButton.addEventListener("click", timerFunction);
       startButton.addEventListener("click", startGame);
       resetButton.addEventListener("click", resetGame);
 
 });
+
+const cursorDot=document.getElementById("cursor-dot");
+        window.addEventListener("mousemove", (e)=>{
+            posX=e.clientX;
+            posY=e.clientY;
+
+            cursorDot.style.left=`${posX}px`
+            cursorDot.style.top=`${posY}px`
+            // cursorDot.animate({
+            //     left:`${posX}px`,
+            //     top:`${posY}px`
+            // }, {duration:100, fill:"forwards"})
+        })
 
     </script>
   </body>
